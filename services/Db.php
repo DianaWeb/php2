@@ -42,9 +42,23 @@ class Db implements IDb
 
     private function query(string $sql, array $params = [])
     {
+//        var_dump($params);
         $pdoStatement = $this->getConnection()->prepare($sql);
         $pdoStatement->execute($params);
+//        var_dump($params);
         return $pdoStatement;
+    }
+
+    public function queryObject($sql, $params =[], $className)
+    {
+        $pdoStatement = $this->query($sql, $params);
+        $pdoStatement->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, $className);
+        return $pdoStatement->fetchAll();
+    }
+
+    public function getLastInsetId()
+    {
+        return $this->getConnection()->lastInsertId();
     }
 
     public function queryOne(string $sql, array $params = [])
@@ -54,7 +68,7 @@ class Db implements IDb
 
     public function queryAll(string $sql, array $params = [])
     {
-        return $this->query($sql, $params)->fetchAll(/*\PDO::FETCH_CLASS, $this->prod*/);
+        return $this->query($sql, $params)->fetchAll();
     }
 
     public function execute(string $sql, array $params = [])

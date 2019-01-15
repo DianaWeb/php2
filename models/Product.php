@@ -11,22 +11,7 @@ class Product extends Model
 
 //    public $vendor_id;
 
-    public function getName():string
-    {
-        return $this->name;
-    }
-
-    public function getInfo():string
-    {
-        return $this->info;
-    }
-
-    public function getPrice():string
-    {
-        return $this->price;
-    }
-
-    public function getTableName():string
+    public static function getTableName():string
     {
         return 'goods';
     }
