@@ -2,13 +2,11 @@
 
 namespace app\interfaces;
 
-interface IModel
+interface IRecord
 {
     static function getOne(int $id);
 
     static function getAll();
 
-    static function getTableName():string;
-
-//    public function delete($id);
+    static function getTableName() : string ;
 }

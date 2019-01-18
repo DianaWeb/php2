@@ -3,7 +3,6 @@
 namespace app\services;
 
 use app\interfaces\IDb;
-use app\models\Product;
 use app\traits\TSingltone;
 
 class Db implements IDb
@@ -21,11 +20,6 @@ class Db implements IDb
 
     private $conn = null;
 
-//        public function __construct()
-//    {
-//        $this->prod = new Product();
-//    }
-
     private function getConnection()
     {
         if (is_null($this->conn)) {
@@ -42,10 +36,8 @@ class Db implements IDb
 
     private function query(string $sql, array $params = [])
     {
-//        var_dump($params);
         $pdoStatement = $this->getConnection()->prepare($sql);
         $pdoStatement->execute($params);
-//        var_dump($params);
         return $pdoStatement;
     }
 
@@ -55,6 +47,7 @@ class Db implements IDb
         $pdoStatement->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, $className);
         return $pdoStatement->fetchAll();
     }
+
 
     public function getLastInsetId()
     {
@@ -73,7 +66,8 @@ class Db implements IDb
 
     public function execute(string $sql, array $params = [])
     {
-        return $this->query($sql, $params);
+        $this->query($sql, $params);
+        return true;
     }
 
     private function prepareDsnString()

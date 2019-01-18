@@ -4,30 +4,13 @@ include '../services/Autoloader.php';
 
 spl_autoload_register([new \app\services\Autoloader(), 'loadClass']);
 
-$product = \app\models\Product::getOne(152);
-var_dump($product);
 
-var_dump($product->delete());
+$controllerName = $_GET['c'] ?: DEFAULT_CONTROLLER;
+$actionName = $_GET['a'];
 
-//$asd = \app\models\Product::getAll();
-//var_dump($asd);
+$controllerClass = CONTROLLER_NAMESPACE . ucfirst($controllerName) . "Controller";
 
-$product->name = 'кепка';
-$product->info = 'красивая';
-$product->price = 100;
-
-var_dump($product->update());
-
-$good = new \app\models\Product();
-
-$good->name = 'краски';
-$good->info = 'яркие';
-$good->price = 300;
-
-//var_dump($good);
-$good->insert();
-//var_dump($good);
-
-
-
-
+if(class_exists($controllerClass)){
+    $controller = new $controllerClass();
+    $controller->runAction($actionName);
+}

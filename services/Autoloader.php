@@ -2,11 +2,14 @@
 
 namespace app\services;
 
-class Autoloader {
+class Autoloader
+{
+
     public $fileExtension = ".php";
 
     public function loadClass($className)
     {
+
         $className = str_replace(["app\\", "\\"],[ROOT_DIR, "/"], $className);
         $className .= $this->fileExtension;
 
@@ -17,7 +20,3 @@ class Autoloader {
         }
     }
 }
-
-// define("ROOT_DIR", $_SERVER['DOCUMENT_ROOT'] . "/../");
-
-// define("DS", DIRECTORY_SEPARATOR); можно испоьзовать вместо "/"

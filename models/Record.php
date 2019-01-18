@@ -1,10 +1,10 @@
 <?php
 namespace app\models;
 
-use app\interfaces\IModel;
+use app\interfaces\IRecord;
 use app\services\Db;
 
-abstract class Model implements IModel
+abstract class Record implements IRecord
 {
     protected $db;
 
@@ -15,8 +15,8 @@ abstract class Model implements IModel
     {
         $this->db = Db::getInstance();
     }
-/** @return static */
-    public static function getOne(int $id)         
+    /** @return static */
+    public static function getOne(int $id)
     {
         $tableName = static::getTableName();
         $sql = "SELECT * FROM {$tableName} WHERE id = :id";
@@ -33,7 +33,7 @@ abstract class Model implements IModel
     public function delete() {
         $tableName = static::getTableName();
         $sql = "DELETE FROM {$tableName} WHERE id = :id";
-       return $this->db->execute($sql, [":id" => $this->id]);
+        return $this->db->execute($sql, [":id" => $this->id]);
     }
 
     public function insert()
@@ -92,73 +92,5 @@ abstract class Model implements IModel
 
     }
 
-    // UPDATE `goods` SET `id`=[value-1],`name`=[value-2],`info`=[value-3],
-//`price`=[value-4] WHERE 1
 
-    public function save()
-    {
-
-    }
-
-
-
-
-
-
-
-
-//    public function update1($id)
-//    {
-//        $name = $this->getName();
-//        $info = $this->getInfo();
-//        $price = $this->getPrice();
-//        $tableName = $this->getTableName();
-//        $sql = "UPDATE {$tableName}
-//                SET name='$name',info='$info',price='$price' WHERE id = :id";
-//        return $this->db->execute($sql, [":id" => $id]);
-//    }
-
-    //    public function insert()
-//    {
-//        $name = $this->getName();
-//        $info = $this->getInfo();
-//        $price = $this->getPrice();
-//        $tableName = $this->getTableName();
-//        $sql = "INSERT INTO {$tableName}(name, info, price)
-//                VALUES ('$name','$info','$price')";
-//        return $this->db->execute($sql);
-//    }
-
-//    public function delete($id)
-//    {
-//        $tableName = $this->getTableName();
-//        $sql = "DELETE FROM {$tableName} WHERE id = :id";
-//        return $this->db->execute($sql, [":id" => $id]);
-//    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -2,8 +2,12 @@
 
 namespace app\traits;
 
-trait TSingltone {
+
+trait TSingltone
+{
+
     private static $instance = null;
+
 
     private function __construct(){}
     private function __clone(){}
